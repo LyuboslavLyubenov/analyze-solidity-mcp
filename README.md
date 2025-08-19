@@ -1,5 +1,9 @@
 # Lyubos Toolbox Solidity MCP Server
 
+
+https://github.com/user-attachments/assets/70ebb4af-7930-4158-b1af-bc851835b6a6
+
+
 This repository contains an MCP (Model Context Protocol) server for analyzing Solidity contracts. Currently, it provides full function context analysis.
 
 ## Features
