@@ -449,7 +449,7 @@ function analyzeSolidityContract(filePath, filterFunctions = null) {
 
     return connections;
 }
-``
+
 module.exports = {
     analyzeSolidityContract
 };

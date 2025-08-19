@@ -8,7 +8,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "ts-node": "ts-node"
+    "ts-node": "ts-node",
+    "publish-package": "npm publish --access public",
+    "unlink": "npm unlink @lyuboslavlyubenov/analyze-solidity-mcp"
   },
   "keywords": [],
   "author": "",

@@ -1,10 +1,10 @@
 import zod from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 
-const { analyzeContract } = require('./ast-analyzer');
+const { analyzeSolidityContract: analyzeContract } = require('./ast-analyzer');
 
 const inputSchema = {
-  contractContent: zod.string().nonempty(),
+  filePath: zod.string().nonempty(),
   fnToAnalyze: zod.string().nonempty(),
 };
 const outputSchema = {
@@ -23,25 +23,25 @@ export default function register(server: McpServer) {
     "analyze-fn",
     {
       description:
-        `Analyzes a Solidity function to provide detailed execution flow, variable interactions, and contextual insights. When users want to understand how a specific function works, debug issues, or see its interactions within the contract, this tool will: 1) Parse the full contract source code, 2) Extract the target function's logic, 3) Show control flow paths, 4) Highlight state changes and external calls. \`contractContent\` should be the whole contract source code, \`fnToAnalyze\` should be the exact function name.`,
+        `Analyzes a Solidity function to provide detailed execution flow, variable interactions, and contextual insights. When users want to understand how a specific function works, debug issues, or see its interactions within the contract, this tool will: 1) Parse the full contract source code, 2) Extract the target function's logic, 3) Show control flow paths, 4) Highlight state changes and external calls. \`filePath\` should be the absolute path to the Solidity contract file, \`fnToAnalyze\` should be the exact function name.`,
       inputSchema,
       outputSchema,
     },
     async (args: InputArg) => {
       console.log("Analyzing function:", args.fnToAnalyze);
-      console.log("Contract content length:", args.contractContent.length);
+      console.log("File path:", args.filePath);
 
-      const fnCallFlow = analyzeContract(args.contractContent, args.fnToAnalyze);
-      const callFlowJSON = JSON.stringify(fnCallFlow);
+      const analysisResult = analyzeContract(args.filePath, args.fnToAnalyze);
+      const fnCallFlow = JSON.stringify(analysisResult.functions);
       
       return {
         structuredContent: {
-          fnCallFlow: callFlowJSON,
+          fnCallFlow,
         },
         content: [
           {
             type: "text",
-            text: callFlowJSON,
+            text: fnCallFlow,
           },
         ],
       };
