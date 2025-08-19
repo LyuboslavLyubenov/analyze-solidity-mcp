@@ -15,11 +15,11 @@ To run the MCP server, you can use Docker. The port can be specified via an envi
 
 1. Build the Docker image:
 ```bash
-docker build -t lyubos-toolbox-solidity-mcp .
+docker build -t analyze-solidity-mcp .
 ```
 
 2. Run the container with a custom port (default is 3000):
 ```bash
-docker run -e PORT=8080 -p 8080:8080 lyubos-toolbox-solidity-mcp
+docker run -e PORT=8080 -p 8080:8080 analyze-solidity-mcp
 ```
 
